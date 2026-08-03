@@ -31,6 +31,10 @@ namespace ToDoList
                         break;
 
                     case 3:
+                        DeleteTask();
+                        break;
+
+                    case 4:
                         isRunning = false;
                         break;
 
@@ -58,7 +62,7 @@ namespace ToDoList
         }
         static void MenueDisplay()
         {
-            Console.WriteLine("1) Add Task\n2) View Tasks\n3) Exit");
+            Console.WriteLine("1) Add Task\n2) View Tasks\n3) Delete Task\n4) Exit");
         }
 
         static List<string> Tasks = new List<string>();
@@ -66,12 +70,38 @@ namespace ToDoList
         { 
             Tasks.Add(task);
         }
+        static void DeleteTask()
+        {
+            if (Tasks.Count != 0)
+            {
+                int choi = ReadInt("Enter Task Number To Delete");
+                if (choi > 0)
+                {
+                    Tasks.RemoveAt(choi - 1);
+                }
+                else
+                {
+                    Console.WriteLine("Invalid task number!!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("No Tasks Available.");
+            }
+        }
         static void ViewTasks()
         {
-            for(int i = 0; i < Tasks.Count; i++)
+            if (Tasks.Count != 0)
             {
+                for (int i = 0; i < Tasks.Count; i++)
+                {
                     Console.WriteLine($"{1 + i}. {Tasks[i]}");
-           
+
+                }
+            }
+            else
+            {
+                Console.WriteLine("No Tasks Available.");
             }
         }
     }
