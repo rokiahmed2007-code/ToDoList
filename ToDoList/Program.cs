@@ -16,7 +16,7 @@ namespace ToDoList
 
             while (isRunning)
             {
-                MenueDisplay();
+                MenuDisplay();
 
                 int choice = ReadInt("Enter Your Choice");
 
@@ -35,11 +35,15 @@ namespace ToDoList
                         break;
 
                     case 4:
+                        DeleteAllTasks();
+                        break;
+
+                    case 5:
                         isRunning = false;
                         break;
 
                     default:
-                        Console.WriteLine("Invalide Choice!!");
+                        Console.WriteLine("Invalid Choice!!");
                         break;
 
                 }
@@ -60,9 +64,9 @@ namespace ToDoList
             Console.Write($"{message} :");
             return Convert.ToInt32(Console.ReadLine());
         }
-        static void MenueDisplay()
+        static void MenuDisplay()
         {
-            Console.WriteLine("1) Add Task\n2) View Tasks\n3) Delete Task\n4) Exit");
+            Console.WriteLine("1) Add Task\n2) View Tasks\n3) Delete Task\n4) Delete All Tasks\n5) Exit");
         }
 
         static List<string> Tasks = new List<string>();
@@ -89,6 +93,20 @@ namespace ToDoList
                 Console.WriteLine("No Tasks Available.");
             }
         }
+
+        static void DeleteAllTasks() {
+
+            if (Tasks.Count != 0)
+            {
+                Tasks.Clear();
+                Console.WriteLine("All Tasks Deleted.");
+            }
+            else
+            {
+                Console.WriteLine("No Tasks Available To Delete.");
+            }
+        }
+
         static void ViewTasks()
         {
             if (Tasks.Count != 0)
@@ -104,5 +122,6 @@ namespace ToDoList
                 Console.WriteLine("No Tasks Available.");
             }
         }
+
     }
 }
