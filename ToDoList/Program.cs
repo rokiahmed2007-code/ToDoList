@@ -39,6 +39,18 @@ namespace ToDoList
                         break;
 
                     case 5:
+                        MarkTaskAsCompleted();
+                        break;
+
+                    case 6:
+                        ViewCompletedTasks();
+                        break;
+
+                    case 7:
+                        DeleteCompletedTasks();
+                        break;
+
+                    case 8:
                         isRunning = false;
                         break;
 
@@ -64,9 +76,9 @@ namespace ToDoList
             Console.Write($"{message} :");
             return Convert.ToInt32(Console.ReadLine());
         }
-        static void MenuDisplay()
+        static void MenuDisplay() 
         {
-            Console.WriteLine("1) Add Task\n2) View Tasks\n3) Delete Task\n4) Delete All Tasks\n5) Exit");
+            Console.WriteLine("1) Add Task\n2) View Tasks\n3) Delete Task\n4) Delete All Tasks\n5) Mark Task As Completed\n6) View Completed Tasks\n7) Delete Completed Tasks\n8) Exit");
         }
 
         static List<string> Tasks = new List<string>();
@@ -74,12 +86,29 @@ namespace ToDoList
         { 
             Tasks.Add(task);
         }
+
+        static void ViewTasks()
+        {
+            if (Tasks.Count != 0)
+            {
+                for (int i = 0; i < Tasks.Count; i++)
+                {
+                    Console.WriteLine($"{1 + i}. {Tasks[i]}");
+
+                }
+            }
+            else
+            {
+                Console.WriteLine("No Tasks Available.");
+            }
+        }
+
         static void DeleteTask()
         {
             if (Tasks.Count != 0)
             {
                 int choi = ReadInt("Enter Task Number To Delete");
-                if (choi > 0)
+                if (choi > 0 && choi<=Tasks.Count)
                 {
                     Tasks.RemoveAt(choi - 1);
                 }
@@ -107,21 +136,62 @@ namespace ToDoList
             }
         }
 
-        static void ViewTasks()
+        
+
+        static List<string> CompletedTasks = new List<string>();
+
+        static void MarkTaskAsCompleted()
         {
             if (Tasks.Count != 0)
             {
-                for (int i = 0; i < Tasks.Count; i++)
+                ViewTasks();
+
+                int choi = ReadInt("Enter Task Number To mark As Completed");
+
+                if (choi > 0 && choi<=Tasks.Count)
                 {
-                    Console.WriteLine($"{1 + i}. {Tasks[i]}");
+                    CompletedTasks.Add(Tasks[choi - 1]);
+                    Tasks.RemoveAt(choi - 1);
+                }
+                else
+                {
+                    Console.WriteLine("Invalid task number!!");
 
                 }
             }
             else
             {
-                Console.WriteLine("No Tasks Available.");
+                Console.WriteLine("No Tasks Available To Be Marked As Completed.");
             }
         }
 
+        static void ViewCompletedTasks()
+        {
+            if (CompletedTasks.Count != 0)
+            {
+                for (int i = 0; i < CompletedTasks.Count; i++)
+                {
+                    Console.WriteLine($"{1 + i}. {CompletedTasks[i]}");
+
+                }
+            }
+            else
+            {
+                Console.WriteLine("No  Completed Task Available.");
+            }
+        }
+
+        static void DeleteCompletedTasks()
+        {
+            if (CompletedTasks.Count != 0)
+            {
+                CompletedTasks.Clear();
+                Console.WriteLine("All Completed Tasks Deleted.");
+            }
+            else
+            {
+                Console.WriteLine("No Completed Tasks Available To Delete.");
+            }
+        }
     }
 }
