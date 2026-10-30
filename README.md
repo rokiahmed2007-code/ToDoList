@@ -15,7 +15,7 @@ ToDoList is a personal project designed to help users organize and manage their 
 ## 🛠️ Technologies Used
 
 - C#
-- .NET / Visual Studio
+-  Visual Studio
 
 ## 🚀 Getting Started
 
